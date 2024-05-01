@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include yofroyo *.css
+recursive-include yofroyo *.csv
+recursive-include yofroyo *.html
+recursive-include yofroyo *.ico
+recursive-include yofroyo *.js
+recursive-include yofroyo *.json
+recursive-include yofroyo *.md
+recursive-include yofroyo *.png
+recursive-include yofroyo *.py
+recursive-include yofroyo *.svg
+recursive-include yofroyo *.txt
+recursive-exclude yofroyo *.pyc
