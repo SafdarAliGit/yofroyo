@@ -1,0 +1,123 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "DDO-.DD.-.MM.-.YY.-.#####",
+ "creation": "2024-05-23 17:35:23.669535",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "column_break_rgo75",
+  "warehouse",
+  "section_break_ofwfz",
+  "daily_dispose_off_items",
+  "section_break_mgwxz",
+  "total_consumed_qty",
+  "column_break_qud8s",
+  "total_amount",
+  "amended_from",
+  "stock_entry"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Datetime",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_rgo75",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "section_break_ofwfz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "daily_dispose_off_items",
+   "fieldtype": "Table",
+   "label": "Daily Dispose Off Items",
+   "options": "Daily Dispose Off Items"
+  },
+  {
+   "fieldname": "section_break_mgwxz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_consumed_qty",
+   "fieldtype": "Float",
+   "label": "Total Consumed Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_qud8s",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Daily Dispose Off",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Daily Dispose Off",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "stock_entry",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "stock_entry"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-05-23 19:38:23.899124",
+ "modified_by": "Administrator",
+ "module": "yofroyo",
+ "name": "Daily Dispose Off",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

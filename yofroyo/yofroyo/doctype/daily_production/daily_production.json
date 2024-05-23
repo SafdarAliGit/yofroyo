@@ -1,0 +1,149 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "DP-.DD.-.MM.-.YY.-.#####",
+ "creation": "2024-05-23 15:07:46.440162",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "column_break_rgo75",
+  "warehouse",
+  "column_break_alyyz",
+  "dispenser",
+  "column_break_husrm",
+  "finish_item",
+  "column_break_rppb5",
+  "finish_qty",
+  "section_break_ofwfz",
+  "raw_materials",
+  "section_break_mgwxz",
+  "total_qty",
+  "column_break_qud8s",
+  "total_amount",
+  "amended_from",
+  "stock_entry"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Datetime",
+   "label": "Date"
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "dispenser",
+   "fieldtype": "Select",
+   "label": "Dispenser",
+   "options": "\ndispenser-1\ndispenser-2\ndispenser-3"
+  },
+  {
+   "fieldname": "finish_item",
+   "fieldtype": "Link",
+   "label": "Finish Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "finish_qty",
+   "fieldtype": "Float",
+   "label": "Finish Qty"
+  },
+  {
+   "fieldname": "raw_materials",
+   "fieldtype": "Table",
+   "label": "Raw Materials",
+   "options": "Daily Production Items"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_qty",
+   "fieldtype": "Float",
+   "label": "Total Qty",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Daily Production",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_rgo75",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_alyyz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_husrm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_rppb5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_ofwfz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_mgwxz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_qud8s",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "stock_entry",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "stock_entry"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-05-23 19:37:56.124290",
+ "modified_by": "Administrator",
+ "module": "yofroyo",
+ "name": "Daily Production",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
