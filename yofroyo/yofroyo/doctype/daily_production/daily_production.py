@@ -23,6 +23,7 @@ class DailyProduction(Document):
         it.valuation_rate = self.total_amount / self.finish_qty
         it.basic_rate = self.total_amount / self.finish_qty
         it.is_finished_item = 1
+        it.expense_account = "Stock In Hand - Y"
 
         for item in self.raw_materials:
             it = doc.append("items", {})
@@ -33,6 +34,7 @@ class DailyProduction(Document):
             it.valuation_rate = item.rate
             it.basic_rate = item.rate
             it.basic_amount = item.amount
+            it.expense_account = "Stock In Hand - Y"
 
         try:
             doc.ignore_validation = True
