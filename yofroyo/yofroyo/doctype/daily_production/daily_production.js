@@ -10,14 +10,14 @@ frappe.ui.form.on('Daily Production', {
                 }
             };
         });
-        frm.set_query('item_code', 'raw_materials', function (doc, cdt, cdn) {
-            var d = locals[cdt][cdn];
-            return {
-                filters: [
-                    ["Item", "parent_item_group", "=", "Raw Material"]
-                ]
-            };
-        });
+        // frm.set_query('item_code', 'raw_materials', function (doc, cdt, cdn) {
+        //     var d = locals[cdt][cdn];
+        //     return {
+        //         filters: [
+        //             ["Item", "item_group", "=", "Raw Material"]
+        //         ]
+        //     };
+        // });
     }
 
 });
