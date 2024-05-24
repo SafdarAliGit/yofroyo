@@ -14,7 +14,7 @@ frappe.ui.form.on('Daily Production', {
             var d = locals[cdt][cdn];
             return {
                 filters: [
-                    ["Item", "item_group", "=", "Raw Material"]
+                    ["Item", "parent_item_group", "=", "Raw Material"]
                 ]
             };
         });
