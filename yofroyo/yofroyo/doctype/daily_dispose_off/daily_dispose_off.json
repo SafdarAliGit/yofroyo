@@ -88,16 +88,22 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "stock_entry",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "stock_entry"
+   "label": "Stock Entry"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2024-05-23 19:38:23.899124",
+ "links": [
+  {
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "daily_dispose_off"
+  }
+ ],
+ "modified": "2024-05-24 10:06:38.426915",
  "modified_by": "Administrator",
  "module": "yofroyo",
  "name": "Daily Dispose Off",

@@ -114,16 +114,22 @@
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "stock_entry",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "stock_entry"
+   "label": "Stock Entry"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2024-05-23 19:37:56.124290",
+ "links": [
+  {
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "daily_production"
+  }
+ ],
+ "modified": "2024-05-24 09:36:52.946170",
  "modified_by": "Administrator",
  "module": "yofroyo",
  "name": "Daily Production",
