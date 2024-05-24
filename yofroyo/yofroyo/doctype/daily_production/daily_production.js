@@ -27,6 +27,22 @@ frappe.ui.form.on('Daily Production Items', {
     },
     rate: function (frm, cdt, cdn) {
         calculate_amount(frm, cdt, cdn);
+    },
+    item_code: function (frm, cdt, cdn) {
+        var row = locals[cdt][cdn];
+        frappe.call({
+            method: 'yofroyo.yofroyo.utils.fetch_valuation_rate.fetch_valuation_rate',
+            args: {
+                item_code: row.item_code
+            },
+            callback: function (r) {
+                if (r.message) {
+                    frappe.model.set_value(cdt, cdn, 'rate', r.message.valuation_rate);
+                } else {
+                    frappe.msgprint('No Data Found');
+                }
+            }
+        });
     }
 
 });
