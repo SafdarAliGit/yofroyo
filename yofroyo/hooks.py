@@ -13,7 +13,7 @@ app_license = "MIT"
 # include js, css files in header of desk.html
 # app_include_css = "/assets/yofroyo/css/yofroyo.css"
 # app_include_js = "/assets/yofroyo/js/yofroyo.js"
-# app_include_js = "/assets/yofroyo/js/yofroyo.js"
+# app_include_js = "/assets/yofroyo/js/point.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/yofroyo/css/yofroyo.css"
@@ -30,7 +30,7 @@ app_license = "MIT"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-doctype_js = {"Item" : "public/js/point_of_sale.min.js"}
+# doctype_js = {"doctype" : "public/js/doctype.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
