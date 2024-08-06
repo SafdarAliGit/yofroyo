@@ -18,6 +18,9 @@ frappe.ui.form.on('Invoice', {
                     args: {
                         doctype: 'Item',
                         fields: ['item_code', 'image'], // Add any additional fields you need
+                        filters: {
+                            item_group: 'PACKAGING' // Filter condition
+                        },
                         limit_page_length: 100 // Adjust the limit as needed
                     },
                     callback: function (response) {
