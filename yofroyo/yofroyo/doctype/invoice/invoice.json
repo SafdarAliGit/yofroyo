@@ -1,0 +1,124 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-07-24 15:42:43.467294",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "amended_from",
+  "invoice_item",
+  "column_break_tli7z",
+  "quantity",
+  "section_break_adk2h",
+  "grand_total",
+  "column_break_kuvxt",
+  "paid_amount",
+  "column_break_ikd1v",
+  "to_be_paid",
+  "naming_series"
+ ],
+ "fields": [
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Invoice",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "Walking Customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "invoice_item",
+   "fieldtype": "Table",
+   "label": "Invoice Item",
+   "options": "Invoice Item"
+  },
+  {
+   "default": "0",
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "paid_amount",
+   "fieldtype": "Currency",
+   "label": "Paid Amount"
+  },
+  {
+   "default": "0",
+   "fieldname": "to_be_paid",
+   "fieldtype": "Currency",
+   "label": "Change Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_tli7z",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_adk2h",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_kuvxt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_ikd1v",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "INV-.YYYY.-"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-08-06 16:00:34.224195",
+ "modified_by": "Administrator",
+ "module": "yofroyo",
+ "name": "Invoice",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "show_preview_popup": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
