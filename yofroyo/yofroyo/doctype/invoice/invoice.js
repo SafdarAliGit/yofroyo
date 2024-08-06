@@ -28,7 +28,7 @@ frappe.ui.form.on('Invoice', {
                             var itemsList = `<ul style="list-style: none;">`;
                             response.message.forEach(function (item) {
                                 itemsList += `<li style="border: solid 1.5px #2490ef; border-radius: 8px; padding: 8px; margin-bottom: 8px;" item_code="${item.item_code}">
-                                    <b>${item.item_code} </b>
+                                    <b style="color:black;">${item.item_code} </b>
                                     <img src="${item.image}" width="80" height="80">
                                 </li>`;
                             });
