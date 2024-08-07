@@ -17,7 +17,7 @@ frappe.ui.form.on('Invoice', {
                     method: 'frappe.client.get_list',
                     args: {
                         doctype: 'Item',
-                        fields: ['item_code', 'image'], // Add any additional fields you need
+                        fields: ['item_code', 'image', 'rate'], // Add any additional fields you need
                         filters: {
                             item_group: 'Finish' // Filter condition
                         },
@@ -27,7 +27,7 @@ frappe.ui.form.on('Invoice', {
                         if (response.message && response.message.length) {
                             var itemsList = `<ul style="list-style: none;">`;
                             response.message.forEach(function (item) {
-                                itemsList += `<li style="border: solid 1.5px #2490ef; border-radius: 8px; padding: 8px; margin-bottom: 8px;" item_code="${item.item_code}">
+                                itemsList += `<li style="border: solid 1.5px #2490ef; border-radius: 8px; padding: 8px; margin-bottom: 8px;" item_code="${item.item_code}" rate="${item.rate}">
                                     <b style="color:black;">${item.item_code} </b>
                                     <img src="${item.image}" width="80" height="80">
                                 </li>`;
@@ -43,11 +43,11 @@ frappe.ui.form.on('Invoice', {
                                 <input type="button" value="7" name="seven" id="seven" style="width: 95px; height: 80px; margin: 3px; font-size: 3.5em;">
                                 <input type="button" value="8" name="eight" id="eight" style="width: 95px; height: 80px; margin: 3px; font-size: 3.5em;">
                                 <input type="button" value="9" name="nine" id="nine" style="width: 95px; height: 80px; margin: 3px; font-size: 3.5em;">
-                                <input type="button" value="0" name="zero" id="zero" style="width: 95px; height: 80px; margin: 3px; font-size: 3.5em;">
-                                <input type="button" value="DEL" name="del" id="del" style="width: 200px; height: 80px; margin: 3px; font-size: 3.5em;">
+                                <input type="button" value="del" name="del" id="del" style="width: 95px; height: 80px; margin: 3px; font-size: 3.5em;">
+                                <input type="button" value="0" name="0" id="zero" style="width: 200px; height: 80px; margin: 3px; font-size: 3.5em;">
                             </form>`;
                             // Insert the items list and number form
-                            $('.section-body .col-sm-6').eq(1).find('form').append(`<div style="width: 100%"><div style="overflow-y: auto; width: 40%; float: left;" class="items-list">${itemsList}</div><div style="width: 60%; float: left; padding: 6px; box-sizing: border-box;" class="num-form">${num_form}</div></div>`);
+                            $('.section-body .col-sm-6').eq(1).find('form').append(`<div style="width: 100%"><div style="overflow-y: auto; width: 40%; float: left;padding-top: 8px; box-sizing: border-box;" class="items-list">${itemsList}</div><div style="width: 60%; float: left; padding: 6px; box-sizing: border-box;" class="num-form">${num_form}</div></div>`);
 
                             // Initialize event handlers
                             initEventHandlers(frm);
@@ -61,6 +61,9 @@ frappe.ui.form.on('Invoice', {
                 initEventHandlers(frm);
             }
         });
+    },
+    paid_amount: function (frm) {
+        calucateTotal(frm);
     }
 });
 
@@ -68,24 +71,31 @@ frappe.ui.form.on('Invoice', {
 function initEventHandlers(frm) {
     $(document).off('click', '.items-list li').on('click', '.items-list li', function () {
         var itemCode = $(this).attr('item_code');
-        addItemToChildTable(frm, itemCode);
+        var itemRate = $(this).attr('rate');
+        addItemToChildTable(frm, itemCode, itemRate);
+        calucateTotal(frm);
     });
-
+    // Add event listener for keypad
     $(document).off('click', '#num_form input[type="button"]:not([name="del"])').on('click', '#num_form input[type="button"]:not([name="del"])', function () {
         var value = $(this).val();
         var current = String(frm.doc.paid_amount || '');
         frm.set_value("paid_amount", current + value);
+        calucateTotal(frm);
     });
 
     $(document).off('click', '#num_form input[name="del"]').on('click', '#num_form input[name="del"]', function () {
         var current = String(frm.doc.paid_amount || '');
         frm.set_value("paid_amount", current.slice(0, -1));
+        calucateTotal(frm);
+    });
+    $(document).off('click', '.grid-remove-rows"]').on('click', '.grid-remove-rows', function () {
+        calucateTotal(frm);
     });
 }
 
 // Function to add item to the child table
-function addItemToChildTable(frm, itemCode) {
-    var child_table_field = 'invoice_item'; // Replace with your actual field name
+function addItemToChildTable(frm, itemCode, itemRate) {
+    var child_table_field = 'items'; // Replace with your actual field name
 
     // Ensure the child table field exists and is accessible
     if (frm.fields_dict[child_table_field]) {
@@ -99,7 +109,12 @@ function addItemToChildTable(frm, itemCode) {
 
         if (!existingItem) {
             // Add a new row to the child table
-            var new_row = frm.add_child(child_table_field, {item: itemCode, qty: frm.doc.quantity || 1});
+            var new_row = frm.add_child(child_table_field, {
+                item: itemCode,
+                qty: frm.doc.quantity || 1,
+                rate: itemRate,
+                amount: itemRate * (frm.doc.quantity || 1)
+            });
             frm.refresh_field(child_table_field); // Refresh the child table to show the new row
         } else {
             frappe.msgprint(__('Item already exists in the list.'));
@@ -107,6 +122,22 @@ function addItemToChildTable(frm, itemCode) {
     } else {
         frappe.msgprint(__('Child table field is not defined.'));
     }
+
+}
+
+function calucateTotal(frm) {
+    var grand_total = 0;
+    $.each(frm.doc.items || [], function (i, d) {
+        grand_total += flt(d.amount);
+    });
+    frm.set_value("grand_total", grand_total);
+    //to be paid calculation
+    var paid_amount = frm.doc.paid_amount || 0;
+    var to_be_paid = paid_amount - grand_total;
+    // if (to_be_paid < 0) {
+    //     to_be_paid = 0;
+    // }
+    frm.set_value("to_be_paid", to_be_paid);
 }
 
 // Initialize custom styles

@@ -32,7 +32,7 @@ page_js = {"point-of-sale" : "public/js/serial_reader.js"}
 # page_js = {"items" : "/assets/yofroyo/js/point-of-sale.min.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Invoice" : "public/js/serialreader.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
