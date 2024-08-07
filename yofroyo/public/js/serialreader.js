@@ -53,9 +53,9 @@ $(document).ready(function () {
             }
         }
 
-        // $(document).on('click', '.item-name', function () {
+        $(document).on('click', 'input[data-fieldname="quantity"]', function () {
             connectSerial();
-        // });
+        });
     } else {
         console.log('Web Serial API is not supported in this browser.');
 
