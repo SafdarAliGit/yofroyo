@@ -40,7 +40,7 @@ $(document).ready(function () {
 
                     // Process the received data
                     let floatValue = parseFloat(value.trim());
-                    const inputField = $('input[data-fieldname="quantity"]');
+                    const inputField = $('#quantity');
 
                     if (inputField.length) {
                         inputField.val(floatValue);
