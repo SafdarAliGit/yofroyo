@@ -110,11 +110,12 @@ function addItemToChildTable(frm, itemCode, itemRate) {
 
         if (!existingItem) {
             // Add a new row to the child table
+            var qty = $('#quantity').val() || 1;
             var new_row = frm.add_child(child_table_field, {
                 item: itemCode,
-                qty: frm.doc.quantity || 1,
+                qty: qty,
                 rate: itemRate,
-                amount: itemRate * (frm.doc.quantity || 1)
+                amount: itemRate * qty
             });
             frm.refresh_field(child_table_field); // Refresh the child table to show the new row
         } else {
