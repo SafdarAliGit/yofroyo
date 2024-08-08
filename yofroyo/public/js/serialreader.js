@@ -3,20 +3,14 @@ $(document).ready(function () {
         let port;
         let reader;
         let textDecoder;
-        let inputField;
-
-        // Function to reverse a string
-        function reverseString(str) {
+         function reverseString(str) {
             return str.split('').reverse().join('');
         }
-
         // Function to connect to the serial port
         async function connectSerial() {
             try {
-                // Request the port and open a connection
                 port = await navigator.serial.requestPort();
                 await port.open({ baudRate: 9600 });
-
                 // Initialize text decoder
                 textDecoder = new TextDecoderStream();
                 const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
@@ -25,7 +19,7 @@ $(document).ready(function () {
                 // Start reading data
                 readSerialData();
             } catch (error) {
-                console.log('Error:', error);
+                console.error('Error connecting to serial port:', error);
             }
         }
 
@@ -38,47 +32,34 @@ $(document).ready(function () {
                         reader.releaseLock();
                         break;
                     }
+
                     // Process the received data
                     let reversedValue = reverseString(value.trim());
                     let floatValue = parseFloat(reversedValue);
-                    if (inputField) {
+                    const inputField = $('#quantity');
+
+                    if (inputField.length) {
                         inputField.val(floatValue);
+                        // Focus on the input field after 3 seconds
+                        setTimeout(() => {
+                            inputField.focus();
+                            inputField.select();
+                        }, 3000);
+                    } else {
+                        console.error('Input field with data-fieldname="quantity" not found.');
                     }
                 } catch (error) {
-                    console.log('Error reading data:', error);
+                    console.error('Error reading serial data:', error);
                     break;
                 }
             }
         }
 
-        async function closePort() {
-            if (port && port.opened) {
-                await port.close();
-            }
-        }
-
-        // Connect to the serial port when the form loads
-        connectSerial();
-
-        // Handle focusing and closing the port after 3 seconds
-        $(document).on('focus', 'input[data-fieldname="quantity"]', function () {
-            inputField = $(this);
-
-            // Focus on the input field after 3 seconds
-            setTimeout(() => {
-                if (inputField) {
-                    inputField.focus();
-                    closePort();
-                }
-            }, 3000);
+        // Bind click event to the button to start the serial connection
+        $(document).on('click', '#quantity', function () {
+            connectSerial();
         });
-
-        // Optionally, you can close the port when the form is submitted or when you no longer need it
-        // $(document).on('submit', 'form', function () {
-        //     closePort();
-        // });
-
     } else {
-        console.log('Web Serial API is not supported in this browser.');
+        console.error('Web Serial API is not supported in this browser.');
     }
 });
