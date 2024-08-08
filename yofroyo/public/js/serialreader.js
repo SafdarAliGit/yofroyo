@@ -4,15 +4,12 @@ $(document).ready(function () {
         let reader;
         let textDecoder;
 
-        function reverseString(str) {
-            return str.split('').reverse().join('');
-        }
-
+        // Function to connect to the serial port
         async function connectSerial() {
             try {
                 // Request the port and open a connection
                 port = await navigator.serial.requestPort();
-                await port.open({baudRate: 9600});
+                await port.open({ baudRate: 9600 });
 
                 // Initialize text decoder
                 textDecoder = new TextDecoderStream();
@@ -22,22 +19,24 @@ $(document).ready(function () {
                 // Start reading data
                 readSerialData();
             } catch (error) {
-                console.log('Error:', error);
+                console.error('Error connecting to serial port:', error);
             }
         }
 
+        // Function to read data from the serial port
         async function readSerialData() {
             while (true) {
                 try {
-                    const {value, done} = await reader.read();
+                    const { value, done } = await reader.read();
                     if (done) {
                         reader.releaseLock();
                         break;
                     }
-                    // Display the data in the input field
-                    let reversedValue = reverseString(value.trim());
-                    let floatValue = parseFloat(reversedValue);
+
+                    // Process the received data
+                    let floatValue = parseFloat(value.trim());
                     const inputField = $('input[data-fieldname="quantity"]');
+
                     if (inputField.length) {
                         inputField.val(floatValue);
 
@@ -47,19 +46,17 @@ $(document).ready(function () {
                         }, 3000);
                     }
                 } catch (error) {
-                    console.log('Error reading data:', error);
+                    console.error('Error reading serial data:', error);
                     break;
                 }
             }
         }
 
+        // Bind click event to the button to start the serial connection
         $(document).on('click', '#quantity', function () {
             connectSerial();
         });
     } else {
-        console.log('Web Serial API is not supported in this browser.');
-
+        console.error('Web Serial API is not supported in this browser.');
     }
-
 });
-
