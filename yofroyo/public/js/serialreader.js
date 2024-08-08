@@ -7,9 +7,11 @@ $(document).ready(function () {
         // Function to connect to the serial port
         async function connectSerial() {
             try {
-                // Request the port and open a connection
+                console.log('Requesting serial port...');
                 port = await navigator.serial.requestPort();
                 await port.open({ baudRate: 9600 });
+
+                console.log('Serial port opened successfully.');
 
                 // Initialize text decoder
                 textDecoder = new TextDecoderStream();
@@ -30,8 +32,11 @@ $(document).ready(function () {
                     const { value, done } = await reader.read();
                     if (done) {
                         reader.releaseLock();
+                        console.log('Reader is done.');
                         break;
                     }
+
+                    console.log('Received data:', value);
 
                     // Process the received data
                     let floatValue = parseFloat(value.trim());
@@ -39,11 +44,15 @@ $(document).ready(function () {
 
                     if (inputField.length) {
                         inputField.val(floatValue);
+                        console.log('Updated input field with value:', floatValue);
 
                         // Focus on the input field after 3 seconds
                         setTimeout(() => {
                             inputField.focus();
+                            console.log('Focused on input field.');
                         }, 3000);
+                    } else {
+                        console.error('Input field with data-fieldname="quantity" not found.');
                     }
                 } catch (error) {
                     console.error('Error reading serial data:', error);
