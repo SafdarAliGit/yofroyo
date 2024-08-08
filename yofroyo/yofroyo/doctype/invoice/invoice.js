@@ -25,6 +25,7 @@ frappe.ui.form.on('Invoice', {
                     },
                     callback: function (response) {
                         if (response.message && response.message.length) {
+                            var quantity = `<input type="input" value="" name="quantity" id="quantity"  style="width: 100%;border-radius: 5px;border: solid 2px #2490ef;margin-top: 24px;font-size: 2em;padding: 4px;">`
                             var itemsList = `<ul style="list-style: none;">`;
                             response.message.forEach(function (item) {
                                 itemsList += `<li style="border: solid 1.5px #2490ef; border-radius: 8px; padding: 8px; margin-bottom: 8px;" item_code="${item.item_code}" rate="${item.rate}">
@@ -47,7 +48,7 @@ frappe.ui.form.on('Invoice', {
                                 <input type="button" value="0" name="0" id="zero" style="width: 200px; height: 80px; margin: 3px; font-size: 3.5em;">
                             </form>`;
                             // Insert the items list and number form
-                            $('.section-body .col-sm-6').eq(1).find('form').append(`<div style="width: 100%"><div style="overflow-y: auto; width: 40%; float: left;padding-top: 8px; box-sizing: border-box;" class="items-list">${itemsList}</div><div style="width: 60%; float: left; padding: 6px; box-sizing: border-box;" class="num-form">${num_form}</div></div>`);
+                            $('.section-body .col-sm-6').eq(1).find('form').append(`<div style="width: 100%">${quantity}<div style="overflow-y: auto; width: 40%; float: left;padding-top: 8px; box-sizing: border-box;" class="items-list">${itemsList}</div><div style="width: 60%; float: left; padding: 6px; box-sizing: border-box;" class="num-form">${num_form}</div></div>`);
 
                             // Initialize event handlers
                             initEventHandlers(frm);
