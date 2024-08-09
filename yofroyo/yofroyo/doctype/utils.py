@@ -44,6 +44,7 @@ def get_account_balance(**args):
         ac_balance['balance'] = 0
         return ac_balance
 
+
 @frappe.whitelist()
 def get_account_type(account_name):
     account = frappe.get_doc("Account", account_name)
@@ -87,3 +88,51 @@ def get_account_type(account_name):
 #             frappe.throw("No detailed rows found")
 #         if source_name.crv_status > 0:
 #             frappe.throw("Journal entry already created")
+import frappe
+
+@frappe.whitelist()
+def get_for_invoice(**args):
+    try:
+        price_list = frappe.get_value('POS Profile', args.get('pos_profile'), 'selling_price_list')
+        mode_of_payments = frappe.get_list(
+            'POS Payment Method',
+            fields=['mode_of_payment','default'],
+            filters={'parent': args.get('pos_profile')}
+        )
+        items = frappe.get_list('Item', fields=['item_code', 'image'], filters={'item_group': args.get('item_group')})
+        if not items:
+            raise ValueError(frappe._('No items found for the given item group.'))
+
+        item_codes = [item['item_code'] for item in items]
+        if not item_codes:
+            return []
+
+        query = """
+            SELECT item_code, price_list_rate
+            FROM `tabItem Price`
+            WHERE item_code IN ({})
+            AND price_list = %s
+            AND selling = 1
+        """.format(','.join(['%s'] * len(item_codes)))
+
+        prices = frappe.db.sql(query, tuple(item_codes) + (price_list,), as_dict=True)
+        item_prices = {price['item_code']: price['price_list_rate'] for price in prices}
+
+        merged_items = [
+            {
+                'item_code': item['item_code'],
+                'image': item['image'],
+                'rate': item_prices.get(item['item_code'], None)
+            }
+            for item in items
+        ]
+
+        return {
+            'items': merged_items,
+            'mode_of_payments': mode_of_payments,
+        }
+
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), 'Error in get_for_invoice')
+        raise
+
